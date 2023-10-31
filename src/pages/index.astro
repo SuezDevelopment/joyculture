@@ -1,7 +1,14 @@
 ---
-import Layout from '../layouts/Main.astro';
+import Layout from "../layouts/Main.astro";
+import NavBar from "../components/UI/NavBar";
 ---
 
-<Layout title='' description=''>
-
+<Layout
+	title="Joy Culture - Unlock Your Full Potential in 2024!"
+	description="An organized multifaceted platform that uses JOY as a tool to help individuals overcome depression in Africa."
+	image="/assets/join-cohort.jpeg"
+>
+	<>
+		<NavBar client:load/>
+	</>
 </Layout>

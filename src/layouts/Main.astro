@@ -1,74 +1,91 @@
 ---
 interface Props {
-  title: string;
-  description?: string;
+    title: string;
+    description?: string;
+    image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = "/opengraph.jpg" } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 const resolvedImageWithDomain = new URL(
-  "/opengraph.jpg",
-  Astro.site,
+    "/opengraph.jpg",
+    Astro.site,
 ).toString();
 
-const makeDescription = description ? description : "Transforming Professional Networking and IT Services";
+const keywords = "";
+
+const makeDescription = description
+    ? description
+    : "Transforming Professional Networking and IT Services";
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" class="index" />
-    <meta
-      name="description"
-      content={makeDescription}
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <link rel="icon" type="image/icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <head>
+        <meta charset="UTF-8" class="index" />
+        <meta name="description" content={makeDescription} />
 
-    <meta name="title" content=`${title}` />
-    <meta name="description" content={makeDescription} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.acit.network/" />
-    <meta property="og:title" content=`${title}` />
-    <meta property="og:description" content={makeDescription} />
-    <meta
-      property="og:image"
-      content={resolvedImageWithDomain}
-    />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.acit.network/" />
-    <meta property="twitter:title" content=`${title}` />
-    <meta property="twitter:description" content={makeDescription} />
-    <meta
-      property="twitter:image"
-      content={resolvedImageWithDomain}
-    />
+        <meta name="keywords" content={keywords} />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <link rel="icon" type="image/icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
 
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-  </head>
-  <body>
-    <slot />
-  </body>
+        <meta name="title" content={title} />
+        <meta name="description" content={makeDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={makeDescription} />
+        <meta
+            property="og:image:alt"
+            content={title}
+        />
+        <meta
+            property="og:site_name"
+            content={title}
+        />
+        <meta
+            property="article:publisher"
+            content="https://www.facebook.com/JoyedUp"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="830" />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+
+        <!-- twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={makeDescription} />
+        <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+        <link rel="canonical" href={canonicalURL} />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
 <style is:global>
-  html {
-    @apply bg-white scroll-smooth;
-  }
-  body {
-    @apply text-black;
-  }
-  img {
-    content-visibility: auto;
-  }
+    html {
+        @apply bg-white scroll-smooth;
+    }
+    body {
+        @apply text-black;
+    }
+    img {
+        content-visibility: auto;
+    }
 </style>
